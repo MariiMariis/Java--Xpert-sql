@@ -1,0 +1,103 @@
+--exercicios - aula 8
+--EX 1
+
+select 
+    count (employee_id)
+    from employees;
+    
+SELECT 
+    COUNT (*) AS QTD_FUNC FROM EMPLOYEES ;
+    
+SELECT
+    COUNT(EMPLOYEE_ID) "QUANDIDADE DE FUNCIONARIOS"
+        FROM EMPLOYEES;
+
+-- EX 2
+
+SELECT
+    DEPARTMENT_NAME,
+    COUNT(E.EMPLOYEE_ID) "QUANTIDADE DE FUNCIONARIOS"
+    FROM EMPLOYEES E
+    INNER JOIN DEPARTMENTS D
+    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+    GROUP BY DEPARTMENT_NAME
+    ORDER BY 1;
+
+SELECT 
+    D.DEPARTMENT_NAME,
+    COUNT(E.EMPLOYEE_ID) AS QTD_FUNC
+    FROM EMPLOYEES E 
+    INNER JOIN DEPARTMENTS D
+    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+    GROUP BY D.DEPARTMENT_NAME
+    ORDER BY 2;
+
+
+SELECT
+    COUNT(*),
+    d.department_name
+    FROM employees E
+    INNER JOIN departments D
+    ON e.department_id = D.department_id
+    GROUP BY d.department_name;
+
+-- EX 3
+SELECT    
+    D.DEPARTMENT_NAME,
+    COUNT(E.EMPLOYEE_ID) "QUANTIDADE DE FUNCIONARIOS"
+    FROM EMPLOYEES E
+    INNER JOIN DEPARTMENTS D
+    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+    WHERE E.DEPARTMENT_ID >= 50
+    GROUP BY DEPARTMENT_NAME 
+    ORDER BY 1;
+
+SELECT
+    D.DEPARTMENT_NAME,
+    COUNT(E.EMPLOYEE_ID) AS QTD_FUNC
+    FROM EMPLOYEES E
+    INNER JOIN DEPARTMENTS D
+    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+    WHERE D.DEPARTMENT_ID >= 50
+    GROUP BY D.DEPARTMENT_NAME
+    ORDER BY 2;  
+
+select
+    d.department_name, 
+    count (e.employee_id)
+    from employees e 
+    inner join departments d
+    on e.department_id = d.department_id
+    group by department_name
+    having max(e.department_id) >=50
+    order by 2;
+    
+select * from departments; 
+
+-- EX 4
+
+SELECT
+    MANAGER_ID,
+    COUNT(EMPLOYEE_ID) "QUANTIDADE DE FUNCIONARIOS"
+    FROM EMPLOYEES
+    GROUP BY MANAGER_ID
+    HAVING MANAGER_ID IS NOT NULL;
+    
+SELECT
+    MANAGER_ID,
+    COUNT(EMPLOYEE_ID) AS QTD_FUNC_SUBORDINADOS
+    FROM EMPLOYEES
+    GROUP BY MANAGER_ID
+    ORDER BY 1;  
+    
+SELECT
+    E.MANAGER_ID,
+    E2.FIRST_NAME,
+    COUNT(E.EMPLOYEE_ID) AS QTD_FUNC_SUBORDINADOS
+    FROM EMPLOYEES E
+    INNER JOIN EMPLOYEES E2
+    ON E.MANAGER_ID = E2.EMPLOYEE_ID
+    GROUP BY E.MANAGER_ID, E2.FIRST_NAME
+    HAVING E.MANAGER_ID IS NOT NULL
+    ORDER BY 1;
+
